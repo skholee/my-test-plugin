@@ -1,0 +1,19 @@
+plugins :
+    pod :
+        executor : central_deployment_agent
+        source : https://github.com/yuanguangyu/my-test-plugin/archive/master.zip
+
+node_types :
+    cloudify.pod :
+        derived_from : cloudify.nodes.Root
+        properties :
+            pod_name :
+                type : string
+                default : ''
+        interfaces :
+            cloudify.interfaces.lifecycle :
+                start :
+                    implementation : pod.MyPlugin.tasks.start
+                    inputs :
+                        params :
+                            default : {}
